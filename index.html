@@ -132,7 +132,8 @@
     }
 
     .link {
-      display: block;
+      display: flex;
+      align-items: center;
       width: 100%;
       max-width: 380px;
       padding: 20px 30px;
@@ -147,6 +148,30 @@
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.15);
       letter-spacing: 0.3px;
+    }
+
+    .link-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .link:hover .link-icon {
+      transform: scale(1.1);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .link-content {
+      display: flex;
+      align-items: center;
+      flex: 1;
     }
 
     .link::before {
@@ -251,7 +276,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="image/pump.jpg" alt="Avatar" class="avatar">
+    <img src="image/avia.webp" alt="Avatar" class="avatar">
 
     <h1>ИНСТРУКЦИЯ</h1>
     
@@ -265,15 +290,20 @@
         </video>
       </div>
     </div>
-
+<h1>ССЫЛКИ</h1>
     <div class="links-container">
-      <a class="link" href="https://t.me/YourTelegram" target="_blank">
-        <span class="emoji">🔥</span>Aviamasters
+      <a class="link" href="https://t.me/Lucky_Bear_Bars_Bot/app?startapp=bXN0PTB4MTUzOTJmZWI1Jm09TklLSVRPUyZjPUF2aWFZVA" target="_blank">
+        <img src="image/avia.webp" alt="Aviamasters" class="link-icon">
+        <div class="link-content">
+          Aviamasters - Играть в Telegram
+        </div>
       </a>
-      <a class="link" href="https://example.com/game1" target="_blank">
-        <span class="emoji">🎮</span>Telegram-канал
+      <a class="link" href="https://t.me/+byMtciHgBlM0NWIy" target="_blank">
+        <img src="image/tg.jpg" alt="Telegram" class="link-icon">
+        <div class="link-content">
+      Telegram-канал | Конкурсы
+        </div>
       </a>
-      
     </div>
   </div>
 </body>
