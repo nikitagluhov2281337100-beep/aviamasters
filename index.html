@@ -8,7 +8,7 @@
   <!-- Предзагрузка -->
   <link rel="preload" href="fonts/BenzinBold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="video/promo.mp4" as="video" type="video/mp4">
-  <link rel="preload" href="image/avia.webp" as="image">
+  <link rel="preload" href="images/preview.png" as="image">
 
   <style>
     @font-face {
@@ -53,9 +53,23 @@
       visibility: hidden;
     }
 
+    .plane {
+      width: 100px;
+      height: 100px;
+      background: url("images/preview.png") no-repeat center / contain;
+      animation: fly 2.5s ease-in-out infinite;
+    }
+
+    @keyframes fly {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      50% { transform: translateY(-10px) rotate(2deg); opacity: 0.9; }
+      100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    }
+
     .loading-text {
       font-family: "BenzinBold", sans-serif;
       font-size: 22px;
+      margin-top: 20px;
       background: linear-gradient(135deg, #ffe176, #ff5858);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -210,12 +224,13 @@
 <body>
   <!-- Прелоадер -->
   <div id="preloader">
-    <div class="loading-text">Luxury Loading...</div>
+    <div class="plane"></div>
+    <div class="loading-text">Загрузка Aviamasters...</div>
   </div>
 
   <div class="container" id="mainContent">
     <div class="video-section">
-      <video id="promoVideo" preload="auto" muted playsinline>
+      <video id="promoVideo" preload="auto" poster="image/preview.png" playsinline>
         <source src="video/promo.mp4" type="video/mp4">
         Ваш браузер не поддерживает видео.
       </video>
@@ -242,22 +257,27 @@
     const preloader = document.getElementById('preloader');
     const mainContent = document.getElementById('mainContent');
 
-    // Когда все ресурсы подгрузились
+    // Ждём полной загрузки контента
     window.addEventListener('load', () => {
+      // Даем браузеру чуть прогрузить видео и шрифт
       setTimeout(() => {
         preloader.classList.add('hidden');
         mainContent.classList.add('visible');
-      }, 300);
+        // Принудительно загружаем превью, если видео не сразу доступно
+        video.load();
+      }, 500);
     });
 
-    // Нажатие на кнопку "Испытать удачу"
+    // Кнопка "Испытать удачу"
     playBtn.addEventListener('click', () => {
-      // вибрация (если поддерживается)
       if (navigator.vibrate) navigator.vibrate(100);
-
       playBtn.style.display = 'none';
       video.muted = false;
-      video.play();
+      video.play().catch(() => {
+        // если браузер блокирует автоплей — разрешим со звуком вручную
+        video.muted = true;
+        video.play();
+      });
       setTimeout(() => popup.classList.add('active'), 13000);
     });
   </script>
